@@ -1,3 +1,5 @@
+import matplotlib
+import matplotlib.pyplot as plt
 import skimage.color
 import skimage.io
 import skimage.transform

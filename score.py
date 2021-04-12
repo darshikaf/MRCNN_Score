@@ -23,7 +23,7 @@ class Predict(object):
     def __init__(self, image_id: str, classes: List):
         self.image_id = image_id
         self.classes = classes
-        self.config = InferenceConfig()
+        self.config = BalloonConfig()
         self.device = "/cpu:0"
 
     def prep_data(self):
@@ -50,7 +50,7 @@ class Predict(object):
             model = self.load_model()
         except Exception as e:
             raise e
-        image_path = os.path.join(constants.INPUT_DATA, image_id)
+        image_path = os.path.join(constants.INPUT_DATA, self.image_id)
         image = load_image(image_path)
         height, width = image.shape[:2]
         image, window, scale, padding, crop = resize_image(
@@ -66,13 +66,13 @@ class Predict(object):
         display_instances(image, r['rois'], r['masks'], r['class_ids'], 
                             self.classes, r['scores'], ax=ax,
                             title="Predictions")
-        detected_image_name = f"detect_{self.image_id.split('.')[0]}.png"
+        detected_image_name = f"detected_{os.path.basename(self.image_id).split('.')[0]}.png"
         stored_path = f"{constants.OUTPUT_DATA}/{detected_image_name}"
-        # TODO: logs
+        # # TODO: logs
         plt.savefig(stored_path)
         return stored_path
 
 
-filename = "5603212091_2dfe16ea72_b.jpg"
-prediction = Predict(filename, ["balloon"])
+filename = f"{constants.INPUT_DATA}410488422_5f8991f26e_b.jpg"
+prediction = Predict(filename, ["BG", "balloon"])
 stored_path = prediction.predict()

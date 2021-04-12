@@ -18,7 +18,7 @@ class BalloonConfig(Config):
     # Skip detections with < 90% confidence
     DETECTION_MIN_CONFIDENCE = 0.9
 
-class InferenceConfig(config.__class__):
+class InferenceConfig(BalloonConfig.__class__):
     # Run detection on one image at a time
     GPU_COUNT = 1
     IMAGES_PER_GPU = 1

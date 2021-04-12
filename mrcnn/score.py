@@ -34,6 +34,7 @@ class Predict(object):
             # TODO: Add logging
         dataset.prepare()
 
+    # TODO: move this to docker runtime
     def load_model(self):
         with tf.device(self.device):
             model = modellib.MaskRCNN(
@@ -68,11 +69,11 @@ class Predict(object):
                             title="Predictions")
         detected_image_name = f"detected_{os.path.basename(self.image_id).split('.')[0]}.png"
         stored_path = f"{constants.OUTPUT_DATA}/{detected_image_name}"
-        # # TODO: logs
+        # TODO: logs
         plt.savefig(stored_path)
         return stored_path
 
 
-filename = f"{constants.INPUT_DATA}410488422_5f8991f26e_b.jpg"
-prediction = Predict(filename, ["BG", "balloon"])
-stored_path = prediction.predict()
+# filename = f"{constants.INPUT_DATA}410488422_5f8991f26e_b.jpg"
+# prediction = Predict(filename, ["BG", "balloon"])
+# stored_path = prediction.predict()

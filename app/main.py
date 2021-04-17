@@ -8,9 +8,9 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-import mrcnn.constants as constants
+import constants
 
-from mrcnn.score import Predict
+from score import Predict
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
